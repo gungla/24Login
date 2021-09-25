@@ -11,8 +11,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(session({
     secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     rolling: true,
     cookie: {
         maxAge: 60000
@@ -51,22 +51,24 @@ app.post('/login', (req, res)=>{
     let { nombre } = req.body;
     req.session.nombre = nombre;
     res.redirect('/');
+    console.log('Usuario activo');
+    console.log('Nombre de uaurio:', nombre);
 })
 
 app.get('/logout', (req, res)=>{
     let nombre = getSessionName(req);
-
+    
     if(nombre) {
         req.session.destroy( err => {
             if(!err) {
                 res.render("logout", { nombre });
+                console.log('cerrar sesion');
             } else {
                 res.redirect('/');
             }
         })
     }
 })
-
 
 app.listen(8080, ()=>{
     console.log(`Listening on port 8080`);
