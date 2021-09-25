@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="css/styles.css">
+
+<h1 class="alert alert-success">
+    Welcome {{nombre}}!
+    <button class="btn btn-warning float-right mt-2" onclick="location.href='/logout'">Sign out</button>
+    <p class="btn btn-dark float-right mt-2" style="margin-right: 15px;">
+        INACTIVO
+        <span id="SecondsUntilExpire"></span>
+    </p>
+</h1>
+
+<script> 
+    var IDLE_TIMEOUT = 59; 
+    var _idleSecondsCounter = 0;
+    document.onclick = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onmousemove = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onkeypress = function() {
+        _idleSecondsCounter = 0;
+    };
+    window.setInterval(CheckIdleTime, 1000);
+
+    function CheckIdleTime() {
+        _idleSecondsCounter++;
+        var oPanel = document.getElementById("SecondsUntilExpire");
+        if (oPanel)
+            oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+        if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+            window.location = "/logout";
+        }
+    }
+</script>
