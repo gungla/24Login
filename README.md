@@ -1,1 +1,1 @@
-# Desafio 24 - Cookies, Sesiones, Storages - Parte 1
+# Cookies, Sesiones, Storages - Parte 1
